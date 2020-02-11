@@ -1,16 +1,22 @@
 import sklearn
 from sklearn import datasets
-from sklearn import svm
+from sklearn import svm, metrics
+from sklearn.neighbors import KNeighborsClassifier
 
 cancer = datasets.load_breast_cancer()
-
-print(cancer.feature_names)
-print(cancer.target_names)
 
 x = cancer.data
 y = cancer.target
 
 xTrain, xTest, yTrain, yTest = sklearn.model_selection.train_test_split(x, y, test_size=0.2)
 
-print(xTrain, yTrain)
 classes = ["malignant", "benign"]
+
+clf = KNeighborsClassifier(n_neighbors=13)
+clf.fit(xTrain, yTrain)
+
+yPred = clf.predict(xTest)
+
+acc = metrics.accuracy_score(yTest, yPred)
+
+print(acc)
