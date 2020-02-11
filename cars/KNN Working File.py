@@ -23,3 +23,17 @@ x = list(zip(buying, maint, door, persons, lug_boot, safety))
 y = list(cls)
 
 xTrain, xTest, yTrain, yTest = sklearn.model_selection.train_test_split(x, y, test_size=0.1)
+
+model = KNeighborsClassifier(n_neighbors=9)
+
+model.fit(xTrain, yTrain)
+acc = model.score(xTest, yTest)
+print(acc)
+
+predicted = model.predict(xTest)
+names = ["unacc", "acc", "good", "vgood"]
+
+for x in range(len(predicted)):
+    print("Predicted: ", names[predicted[x]], "Data: ", xTest[x], "Actual: ", names[yTest[x]])
+    n = model.kneighbors([xTest[x]], 9, True)
+    print("N: ", n)
