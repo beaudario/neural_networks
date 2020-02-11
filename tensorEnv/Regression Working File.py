@@ -12,4 +12,13 @@ predict = "G3"
 x = np.array(data.drop([predict], 1))
 y = np.array(data[predict])
 
-xTrain, yTrain, xTest, yTest = sklearn.model_selection.train_test_split(x, y, test_size=0.1)
+xTrain, xTest, yTrain,  yTest = sklearn.model_selection.train_test_split(x, y, test_size=0.1)
+
+linear = linear_model.LinearRegression()
+
+linear.fit(xTrain, yTrain)
+acc = linear.score(xTest, yTest)
+
+print(acc)
+print("Co: \n", linear.coef_)
+print("Intercept: \n",  linear.intercept_)
