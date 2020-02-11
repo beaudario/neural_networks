@@ -18,7 +18,7 @@ xTrain, xTest, yTrain,  yTest = sklearn.model_selection.train_test_split(x, y, t
 
 """"
 best = 0
-for _ in range(30):
+for _ in range(1000):
     xTrain, xTest, yTrain,  yTest = sklearn.model_selection.train_test_split(x, y, test_size=0.1)
 
     linear = linear_model.LinearRegression()
