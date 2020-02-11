@@ -22,3 +22,8 @@ acc = linear.score(xTest, yTest)
 print(acc)
 print("Co: \n", linear.coef_)
 print("Intercept: \n",  linear.intercept_)
+
+predictions = linear.predict(xTest)
+
+for x in range(len(predictions)):
+    print(predictions[x], xTest[x], yTest[x])
