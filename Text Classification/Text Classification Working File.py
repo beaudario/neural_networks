@@ -34,4 +34,3 @@ model.add(keras.layers.GlobalAveragePooling1D())
 model.add(keras.layers.Dense(16, activation="relu"))
 model.add(keras.layers.Dense(1, activation="sigmoid"))
 
-
