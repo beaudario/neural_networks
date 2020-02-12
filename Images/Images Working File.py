@@ -12,7 +12,16 @@ classNames = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', "
 trainImages = trainImages/255
 testImages = testImages/255
 
-print(trainImages[7])
+model = keras.Sequential([
+    keras.layers.Flatten(input_shape=(28, 28)),
+    keras.layers.Dense(128, activation="relu"),
+    keras.layers.Dense(10, activation="softmax")
+])
 
-plt.imshow(trainImages[7], cmap=plt.cm.binary)
-plt.show()
+model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"])
+
+model.fit(trainImages, trainLabels, epochs=5)
+
+testLoss, testAcc = model.evaluate(testImages, testLabels)
+
+print("Tested Acc: ", testAcc)
