@@ -22,6 +22,11 @@ model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=
 
 model.fit(trainImages, trainLabels, epochs=5)
 
-testLoss, testAcc = model.evaluate(testImages, testLabels)
+prediction = model.predict(testImages[7])
 
-print("Tested Acc: ", testAcc)
+for i in range(5):
+    plt.grid(False)
+    plt.imshow(testImages[i], cmap=plt.cm.binary)
+    plt.xlabel("Actual:" + classNames[testLabels[i]])
+    plt.title("Prediction: " + classNames[np.argmax(prediction[i])])
+    plt.show()
