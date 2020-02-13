@@ -34,3 +34,25 @@ model.add(keras.layers.GlobalAveragePooling1D())
 model.add(keras.layers.Dense(16, activation="relu"))
 model.add(keras.layers.Dense(1, activation="sigmoid"))
 
+model.summary()
+
+model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"])
+
+xVal = trainData[:10000]
+xTrain = trainData[10000:]
+
+yVal = trainLabels[:10000]
+yTrain = trainLabels[10000:]
+
+fitModel = model.fit(xTrain, yTrain, epochs=40, batch_size=512, validation_data=(xVal, yVal), verbose=1)
+
+results = model.evaluate(testData, testLabels)
+
+testReview = testData[0]
+predict = model.predict(testReview)
+
+print("Review: ")
+print(decodeReview(testReview))
+print("Prediction: ", str(predict[0]))
+print("Actual: ", str(testLabels[0]))
+print(results)
