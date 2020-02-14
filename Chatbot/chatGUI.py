@@ -1,13 +1,17 @@
 import nltk
 from nltk.stem import WordNetLemmatizer
+
 lemmatizer = WordNetLemmatizer()
+
 import pickle
 import numpy as np
 
 from keras.models import load_model
+
 model = load_model('chatbot_model.h5')
 import json
 import random
+
 intents = json.loads(open('intents.json').read())
 words = pickle.load(open('words.pkl', 'rb'))
 classes = pickle.load(open('classes.pkl', 'rb'))
@@ -21,7 +25,6 @@ def CleanUpSentence(sentence):
 
 # return bag of words array: 0 to 1 for each word in the bag that exists in the sentence
 def Bow(sentence, words, showDetails=True):
-
     # tokenize the pattern
     sentenceWords = CleanUpSentence(sentence)
 
@@ -29,7 +32,7 @@ def Bow(sentence, words, showDetails=True):
     bag = [0] * len(words)
 
     for s in sentenceWords:
-        for i, w in enumerate(words)
+        for i, w in enumerate(words):
             if w == s:
 
                 # assign 1 if current word is in the vocabulary position
@@ -42,7 +45,6 @@ def Bow(sentence, words, showDetails=True):
 
 
 def PredictClass(sentence, model):
-
     # filter out predictions below a treshold
     p = Bow(sentence, words, showDetail=True)
     res = model.predict(np.array([p]))[0]
@@ -72,7 +74,7 @@ def GetResponse(ints, intentsJson):
 
 
 def ChatbotResponse(msg):
-    ints = predictClass(msg, model)
+    ints = PredictClass(msg, model)
     res = GetResponse(ints, intents)
 
     return res
